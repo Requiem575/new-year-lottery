@@ -1,0 +1,254 @@
+/* style.css */
+
+/* ======================================= */
+/* 1. БАЗОВЫЕ СТИЛИ И КОНТЕЙНЕРЫ          */
+/* ======================================= */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Центрирует контент вертикально */
+    
+    background-color: #0d1a26; 
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    padding-top: 50px; 
+    padding-bottom: 50px; 
+}
+
+/* Стили заголовка (адаптивный) */
+.title {
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+    text-align: center; 
+    max-width: 90vw; /* Улучшает отображение на мобильных */
+    line-height: 1.2;
+}
+
+/* Сетка для размещения подарков */
+.lottery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px;
+    margin-top: 50px;
+    max-width: 900px;
+}
+
+/* ======================================= */
+/* 2. СТИЛИ КОРОБОК (Gift Box)           */
+/* ======================================= */
+
+.gift-box {
+    width: 160px;
+    height: 160px; 
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d; 
+    transition: transform 0.3s ease, opacity 0.5s ease;
+    image-rendering: pixelated; /* Сохраняет четкость пиксельной графики */
+}
+
+.gift-box:hover {
+    transform: scale(1.05);
+}
+
+/* Общие правила для изображений крышки и основания */
+.box-base, .box-lid {
+    position: absolute;
+    width: 100%;
+    background-size: contain; 
+    background-repeat: no-repeat;
+}
+
+/* Основание коробки */
+.box-base {
+    height: 120px; 
+    bottom: 0;
+    background-position: bottom center;
+    z-index: 10;
+}
+
+/* Крышка коробки */
+.box-lid {
+    height: 80px; 
+    top: 0;
+    background-position: top center; 
+    z-index: 20;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1.2), opacity 0.8s ease; 
+}
+
+/* Ссылки на изображения для каждого цвета */
+.gift-box.first-gift .box-base { background-image: url('img/base_1.png'); }
+.gift-box.first-gift .box-lid { background-image: url('img/lid_1.png'); }
+.gift-box.second-gift .box-base { background-image: url('img/base_2.png'); }
+.gift-box.second-gift .box-lid { background-image: url('img/lid_2.png'); }
+.gift-box.third-gift .box-base { background-image: url('img/base_3.png'); }
+.gift-box.third-gift .box-lid { background-image: url('img/lid_3.png'); }
+.gift-box.fourth-gift .box-base { background-image: url('img/base_4.png'); }
+.gift-box.fourth-gift .box-lid { background-image: url('img/lid_4.png'); }
+.gift-box.fifth-gift .box-base { background-image: url('img/base_5.png'); }
+.gift-box.fifth-gift .box-lid { background-image: url('img/lid_5.png'); }
+.gift-box.sixth-gift .box-base { background-image: url('img/base_6.png'); }
+.gift-box.sixth-gift .box-lid { background-image: url('img/lid_6.png'); }
+
+
+/* ======================================= */
+/* 3. МОДАЛЬНОЕ ОКНО И КАРТОЧКА           */
+/* ======================================= */
+
+/* Контейнер модального окна (темный фон) */
+.prize-modal-container {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 1000; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.prize-modal-container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Сама карточка приза (с PNG-фоном) */
+.prize-modal-container .prize-card {
+    position: relative; 
+    width: 166px; 
+    height: 225px; 
+    background-image: url('img/prize_card_bg.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #333;
+    text-align: center;
+    
+    /* Flex для размещения контента внутри карточки */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* Отступ, чтобы текст не закрывал гирлянду на PNG */
+    padding-top: 50px; 
+    padding-left: 10px;
+    padding-right: 10px;
+    
+    transform: translateY(-50px); /* Начальная позиция для анимации */
+    transition: transform 0.5s ease;
+}
+
+.prize-modal-container.show .prize-card {
+    transform: translateY(0); 
+}
+
+/* Заголовок карточки */
+.prize-modal-container .card-title {
+    font-size: 1.3em;
+    font-weight: 900; /* Максимально допустимое значение */
+    color: #cc0000; 
+    margin-bottom: 5px; 
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Динамический текст приза */
+.prize-modal-container .prize-text {
+    font-size: 1.1em; 
+    font-weight: 600;
+    color: #0d1a26; 
+    line-height: 1.4; /* Корректируем интервал между строками */
+    text-align: center;
+    flex-grow: 1;
+    margin-top: 0; /* Удаляем лишний отступ */
+}
+
+/* Стиль для текста приза, если это "Неудача" */
+.prize-text.fail {
+    color: #e63946; 
+    font-weight: 900;
+    font-size: 1.3em; /* Увеличиваем, чтобы привлечь внимание */
+    text-transform: uppercase;
+}
+
+
+/* ======================================= */
+/* 4. АНИМАЦИИ И СОСТОЯНИЯ                */
+/* ======================================= */
+
+/* Анимация открытия крышки */
+.gift-box.opened { cursor: default; }
+
+.gift-box.opened .box-lid {
+    transform: translateY(-120px) rotateZ(5deg);
+    opacity: 0.9; 
+}
+
+/* Состояние отключенных (уже выбранных) подарков */
+.gift-box.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none; 
+}
+
+/* -------------------------------------- */
+/* КНОПКА СБРОСА                        */
+/* -------------------------------------- */
+
+#resetButton {
+    position: relative; 
+    z-index: 1001; /* Над модальным фоном */
+    
+    margin-top: 30px; 
+    padding: 10px 20px; 
+    font-size: 1.2em; 
+    cursor: pointer; 
+    background-color: #e63946; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    transition: background-color 0.3s, opacity 0.5s ease;
+    
+    opacity: 0;
+    pointer-events: none; /* Скрыта по умолчанию */
+}
+
+#resetButton:hover {
+    background-color: #c02b37;
+}
+
+.show-reset-button {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* ======================================= */
+/* 5. МЕДИАЗАПРОСЫ (АДАПТИВНОСТЬ)         */
+/* ======================================= */
+
+@media (max-width: 768px) {
+    .lottery-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px;
+    }
+}
+@media (max-width: 480px) {
+    .lottery-grid {
+        grid-template-columns: 1fr; 
+        gap: 30px;
+    }
+    .gift-box {
+        width: 160px;
+        height: 160px;
+    }
+}

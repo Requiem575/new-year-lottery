@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новогодняя Лотерея</title>
+    
+    <!-- Иконка страницы (favicon) -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Подключение основных стилей -->
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    
+    <!-- Подключение библиотеки для эффекта конфетти (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <h1 class="title">Выберите ваш новогодний подарок!</h1>
+
+    <!-- Контейнер для сетки подарков -->
+    <div class="lottery-grid">
+        
+        <!-- Каждый блок 'gift-box' представляет собой отдельный подарок -->
+        
+        <div class="gift-box first-gift">
+            <div class="box-lid"></div> <!-- Крышка подарка (для анимации) -->
+            <div class="box-base"></div> <!-- Основание подарка -->
+        </div>
+
+        <div class="gift-box second-gift">
+            <div class="box-lid"></div>
+            <div class="box-base"></div>
+        </div>
+
+        <div class="gift-box third-gift">
+            <div class="box-lid"></div>
+            <div class="box-base"></div>
+        </div>
+
+        <div class="gift-box fourth-gift">
+            <div class="box-lid"></div>
+            <div class="box-base"></div>
+        </div>
+        
+        <div class="gift-box fifth-gift">
+            <div class="box-lid"></div>
+            <div class="box-base"></div>
+        </div>
+        
+        <div class="gift-box sixth-gift">
+            <div class="box-lid"></div>
+            <div class="box-base"></div>
+        </div>
+
+    </div>
+    
+    <!-- Глобальный контейнер для модального окна приза (скрыт по умолчанию) -->
+    <div id="globalPrizeContainer" class="prize-modal-container">
+        
+        <div class="prize-card">
+            <div class="card-title">С Новым Годом!</div> <!-- Заголовок, меняется при неудаче -->
+            <div class="prize-text"></div> <!-- Динамический текст приза/неудачи -->
+        </div>
+        
+        <!-- Кнопка сброса (появляется после выбора приза) -->
+        <button id="resetButton">Начать заново</button>
+
+    </div>
+
+    <!-- Подключение основного скрипта логики -->
+    <script src="script.js"></script>
+</body>
+</html>
